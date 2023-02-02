@@ -5,7 +5,7 @@ import nl.briansporkslede.workshopper.model.Workshop;
 
 import java.time.LocalDateTime;
 
-public class WorkshopOutputDto {
+public class  WorkshopOutputDto {
     public Long id;
     public LocalDateTime dtStart;
     public Integer duration;

@@ -19,14 +19,13 @@ import java.util.Objects;
 public class PhotoController {
     private final PhotoService service;
 
-
     public PhotoController(PhotoService service) {
         this.service = service;
     }
 
     //    post for single upload
     @PostMapping("/upload")
-    FileUploadResponse singleFileUpload(@RequestParam("file") MultipartFile file){
+    FileUploadResponse singleFileUpload(@RequestParam("file") MultipartFile file) {
 
         // next line makes url. example "http://localhost:8080/download/naam.jpg"
         String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/download/").path(Objects.requireNonNull(file.getOriginalFilename())).toUriString();
@@ -35,14 +34,13 @@ public class PhotoController {
 
         String fileName = service.storeFile(file, url);
 
-        return new FileUploadResponse(fileName, contentType, url );
+        return new FileUploadResponse(fileName, contentType, url);
     }
 
     @PostMapping("/upload-default")
-    FileUploadResponse defaultFileUpload(@RequestParam("file") MultipartFile file){
+    FileUploadResponse defaultFileUpload(@RequestParam("file") MultipartFile file) {
 
         // next line makes url. example "http://localhost:8080/download/naam.jpg"
-//        String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/download/").path(Objects.requireNonNull(file.getOriginalFilename())).toUriString();
         String url = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
                 .path("/download/")
@@ -54,7 +52,7 @@ public class PhotoController {
 
         String fileName = service.storeDefaultPicture(file, url);
 
-        return new FileUploadResponse(fileName, contentType, url );
+        return new FileUploadResponse(fileName, contentType, url);
     }
 
     //    get for single download
@@ -68,7 +66,7 @@ public class PhotoController {
 //        this is going to accept multiple types
         String mimeType;
 
-        try{
+        try {
             mimeType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
         } catch (IOException e) {
             mimeType = MediaType.APPLICATION_OCTET_STREAM_VALUE;

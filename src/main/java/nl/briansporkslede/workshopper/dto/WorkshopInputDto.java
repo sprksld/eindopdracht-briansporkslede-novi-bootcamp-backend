@@ -1,8 +1,9 @@
 package nl.briansporkslede.workshopper.dto;
 
-import net.bytebuddy.utility.nullability.MaybeNull;
 import nl.briansporkslede.workshopper.model.Teacher;
 import nl.briansporkslede.workshopper.model.Workshop;
+
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.*;
@@ -10,7 +11,6 @@ import java.time.LocalDateTime;
 
 @Service
 public class WorkshopInputDto {
-    //    public Long id;
     @FutureOrPresent
     public LocalDateTime dtStart;
     @Min(10)
@@ -36,10 +36,10 @@ public class WorkshopInputDto {
     @Min(2)
     public int maxParticipants;
     @FutureOrPresent(message = "vul een datum in de toekomst in, of vandaag, of laat het veld leeg")
-    @MaybeNull
+    @Nullable
     public LocalDateTime dtReservationsStart;
     @FutureOrPresent(message = "creation date must be future or present")
-    @MaybeNull
+    @Nullable
     public LocalDateTime dtReservationsEnd;
 
     public Teacher teacher;
