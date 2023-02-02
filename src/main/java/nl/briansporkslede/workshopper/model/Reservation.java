@@ -9,10 +9,7 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime dtReserved;
-    private LocalDateTime dtCancelled;
-    private LocalDateTime dtProcessed;
-    private Integer priority;
+
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "student_id")            // optioneel
     private Student student;
@@ -20,6 +17,12 @@ public class Reservation {
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "workshop_id")           // optioneel
     private Workshop workshop;
+
+    private Integer priority;                   // used for Likes
+
+    private LocalDateTime dtReserved;
+    private LocalDateTime dtCancelled;
+    private LocalDateTime dtProcessed;
 
     // getters and setters
 

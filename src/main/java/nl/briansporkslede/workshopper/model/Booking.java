@@ -4,15 +4,13 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "bookings" /*, uniqueConstraints = { @UniqueConstraint(columnNames = {"student_id", "workshop_id"})}*/ )
+@Table(name = "bookings" )
+// TODO next line works, but gives error in console log of IDEA
+//@Table(name = "bookings", uniqueConstraints = { @UniqueConstraint(columnNames = {"student_id", "workshop_id"})} )
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Boolean attended;
-    private String feedback;
-    private LocalDateTime dtBooked;
-
     @ManyToOne
     @JoinColumn(name = "student_id")            // optioneel
     private Student student;
@@ -20,6 +18,10 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "workshop_id")           // optioneel
     private Workshop workshop;
+
+    private Boolean attended;
+    private String feedback;
+    private LocalDateTime dtBooked;
 
     // getters and setters
 

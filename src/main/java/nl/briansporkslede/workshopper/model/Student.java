@@ -18,6 +18,10 @@ public class Student {
     private Integer gradeYear;
     private String className;
 
+    @OneToOne(cascade=CascadeType.DETACH)
+    @JoinColumn(name = "mentor_id")
+    private Teacher mentor;
+
     @OneToMany(mappedBy = "student")
     @JsonIgnore                             // prevent recursion
     private List<Reservation> reservations;
@@ -26,11 +30,7 @@ public class Student {
     @JsonIgnore                             // prevent recursion
     private List<Booking> bookings;
 
-    @OneToOne(cascade=CascadeType.DETACH)
-    @JoinColumn(name = "mentor_id")
-    private Teacher mentor;
-
-    private Long user_id;      // TODO
+    private Long user_id;      // TODO change back to Class, when error is gone
 
     // getters and setters
 
