@@ -93,5 +93,45 @@ public class BookingController {
 
     }
 
+    @GetMapping("/attended-and-feedback")
+    public ResponseEntity<Iterable<BookingOutputDto>> getFeedbackForMentor() {
+        // alleen de feedback over voorbije workshops van leerlingen van de ingelogde mentor
+
+        System.out.println("****************************** in getFeedbackForMentor()");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!(auth.getPrincipal() instanceof UserDetails)) {
+            throw new UsernameNotFoundException("Identiteit kan niet bevestigd worden. Daarom worden er geen workshops getoond.");
+        }
+
+        UserDetails ud = (UserDetails) auth.getPrincipal();
+        UserOutputDto optionalUser = userService.getUser(ud.getUsername());
+        Long mentorId = optionalUser.mentor.getId();
+
+        System.out.println("MentorId="+mentorId);
+
+        return ResponseEntity.ok(service.getBookingsFeedbackForMentor(mentorId));
+
+    }
+
+    @GetMapping("/formystudents")
+    public ResponseEntity<Object> getBookingsForMyStudents() {
+        // alleen de workshops die zijn bevestigd voor de ingelogde student
+
+        System.out.println("****************************** in getBookingsForMyStudents()");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!(auth.getPrincipal() instanceof UserDetails)) {
+            throw new UsernameNotFoundException("Identiteit kan niet bevestigd worden. Daarom worden er geen workshops getoond.");
+        }
+
+        UserDetails ud = (UserDetails) auth.getPrincipal();
+        UserOutputDto optionalUser = userService.getUser(ud.getUsername());
+        Long teacherId = optionalUser.mentor.getId();
+
+        return ResponseEntity.ok(service.getBookingsForMyStudents(teacherId));
+
+    }
+
 
 }

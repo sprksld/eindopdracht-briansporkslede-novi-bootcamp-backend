@@ -76,7 +76,7 @@ public class ReservationController {
     }
 
     @GetMapping("/bymystudents")
-    public ResponseEntity<Object> getReservationsByTeacherId() {
+    public ResponseEntity<Object> getReservationsByMyStudents() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (!(auth.getPrincipal() instanceof UserDetails)) {
@@ -87,7 +87,7 @@ public class ReservationController {
         UserOutputDto optionalUser = userService.getUser(ud.getUsername());
         Long teacherId = optionalUser.mentor.getId();
 
-        return ResponseEntity.ok(service.getReservationsByTeacher(teacherId));
+        return ResponseEntity.ok(service.getReservationsByMyStudents(teacherId));
 
     }
 

@@ -96,8 +96,19 @@ public class ReservationService {
         return( foundReservations );
     }
 
-    public Iterable<ReservationOutputDto> getReservationsByTeacher( Long teacherId) {
-        Iterable<Reservation> allReservations = repos.findReservationsByTeacherId(teacherId);
+    public Iterable<ReservationOutputDto> getReservationsByMyStudents( Long teacherId) {
+        Iterable<Reservation> allReservations = repos.findReservationsByMyStudents(teacherId);
+        ArrayList<ReservationOutputDto> foundReservations = new ArrayList<>();
+
+        for( Reservation reservation : allReservations ) {
+            ReservationOutputDto dto = new ReservationOutputDto();
+            foundReservations.add(dto.toDto(reservation));
+        }
+        return( foundReservations );
+    }
+
+    public Iterable<ReservationOutputDto> getReservationsByMentor( Long teacherId) {
+        Iterable<Reservation> allReservations = repos.findReservationsByMentorId(teacherId);
         ArrayList<ReservationOutputDto> foundReservations = new ArrayList<>();
 
         for( Reservation reservation : allReservations ) {

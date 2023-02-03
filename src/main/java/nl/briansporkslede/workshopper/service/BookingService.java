@@ -63,4 +63,31 @@ public class BookingService {
         return( foundBookings );
     }
 
+    public Iterable<BookingOutputDto> getBookingsFeedbackForMentor(Long mentorId) {
+        Iterable<Booking> allBookings = repos.findBookingsFeedbackForMentor(mentorId);
+        ArrayList<BookingOutputDto> foundBookings = new ArrayList<>();
+
+        for( Booking booking : allBookings ) {
+            BookingOutputDto dto = new BookingOutputDto();
+            foundBookings.add(dto.toDto(booking));
+        }
+        return( foundBookings );
+    }
+
+    public Iterable<BookingOutputDto> getBookingsForMyStudents(Long teacherId) {
+        Iterable<Booking> allBookings = repos.findBookingsForMyStudents(teacherId);
+        ArrayList<BookingOutputDto> foundBookings = new ArrayList<>();
+
+        for( Booking booking : allBookings ) {
+            BookingOutputDto dto = new BookingOutputDto();
+            foundBookings.add(dto.toDto(booking));
+        }
+        return( foundBookings );
+    }
+
+
+
+
+
+
 }

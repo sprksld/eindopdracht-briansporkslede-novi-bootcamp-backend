@@ -1,5 +1,6 @@
 package nl.briansporkslede.workshopper.repository;
 
+import nl.briansporkslede.workshopper.model.Booking;
 import nl.briansporkslede.workshopper.model.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +21,20 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             + " AND s.mentor_id = ?1"
             + " AND w.dt_start >= CURRENT_DATE"
             , nativeQuery = true)
-    public Iterable<Reservation> findReservationsByTeacherId(Long teacherId);
+    public Iterable<Reservation> findReservationsByMyStudents(Long teacherId);
+
+
+    // TODO - this is te old one, CHECK IT, AND REMOVE IT ASAP
+    @Query( value = "SELECT * FROM reservations r"
+            + " JOIN workshops w ON w.id = r.workshop_id"
+            + " JOIN students s ON s.id = r.student_id"
+            + " WHERE s.mentor_id = ?1"
+//            + " AND w.dt_start < CURRENT_DATE"
+            , nativeQuery = true)
+    Iterable<Reservation> findReservationsByMentorId(Long id);
+
+
+
+
 
 }
