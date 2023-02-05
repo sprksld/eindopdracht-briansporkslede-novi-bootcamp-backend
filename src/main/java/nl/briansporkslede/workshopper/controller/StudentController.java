@@ -3,7 +3,6 @@ package nl.briansporkslede.workshopper.controller;
 import nl.briansporkslede.workshopper.dto.StudentInputDto;
 import nl.briansporkslede.workshopper.dto.StudentOutputDto;
 import nl.briansporkslede.workshopper.dto.UserOutputDto;
-import nl.briansporkslede.workshopper.model.Student;
 import nl.briansporkslede.workshopper.service.StudentService;
 import nl.briansporkslede.workshopper.service.UserService;
 import nl.briansporkslede.workshopper.util.Utils;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @CrossOrigin
 @RestController

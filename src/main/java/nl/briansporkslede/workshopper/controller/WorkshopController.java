@@ -1,8 +1,8 @@
 package nl.briansporkslede.workshopper.controller;
 
 import nl.briansporkslede.workshopper.dto.*;
-import nl.briansporkslede.workshopper.model.Teacher;
 import nl.briansporkslede.workshopper.model.Workshop;
+import nl.briansporkslede.workshopper.dto.UserOutputDto;
 import nl.briansporkslede.workshopper.service.ReservationService;
 import nl.briansporkslede.workshopper.service.UserService;
 import nl.briansporkslede.workshopper.service.WorkshopService;

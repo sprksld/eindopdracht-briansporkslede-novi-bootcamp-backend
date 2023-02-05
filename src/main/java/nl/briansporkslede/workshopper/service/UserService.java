@@ -1,10 +1,10 @@
 package nl.briansporkslede.workshopper.service;
 
-import nl.briansporkslede.workshopper.dto.UserInputDto;
-import nl.briansporkslede.workshopper.dto.UserOutputDto;
 import nl.briansporkslede.workshopper.exception.RecordNotFoundException;
 import nl.briansporkslede.workshopper.model.Authority;
 import nl.briansporkslede.workshopper.model.User;
+import nl.briansporkslede.workshopper.dto.UserInputDto;
+import nl.briansporkslede.workshopper.dto.UserOutputDto;
 import nl.briansporkslede.workshopper.repository.UserRepository;
 import nl.briansporkslede.workshopper.util.RandomStringGenerator;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

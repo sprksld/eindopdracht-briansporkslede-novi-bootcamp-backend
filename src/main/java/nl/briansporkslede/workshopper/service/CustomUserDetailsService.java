@@ -1,8 +1,8 @@
 package nl.briansporkslede.workshopper.service;
 
 
-import nl.briansporkslede.workshopper.dto.UserOutputDto;
 import nl.briansporkslede.workshopper.model.Authority;
+import nl.briansporkslede.workshopper.dto.UserOutputDto;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

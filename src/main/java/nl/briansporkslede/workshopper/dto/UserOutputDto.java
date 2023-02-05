@@ -5,7 +5,6 @@ import nl.briansporkslede.workshopper.model.Student;
 import nl.briansporkslede.workshopper.model.Teacher;
 import nl.briansporkslede.workshopper.model.User;
 
-import java.util.Collection;
 import java.util.Set;
 
 public class UserOutputDto {
