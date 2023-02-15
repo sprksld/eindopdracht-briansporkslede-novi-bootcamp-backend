@@ -4,6 +4,7 @@ import nl.briansporkslede.workshopper.dto.BookingBatchInputDto;
 import nl.briansporkslede.workshopper.dto.BookingInputDto;
 import nl.briansporkslede.workshopper.dto.BookingOutputDto;
 import nl.briansporkslede.workshopper.dto.UserOutputDto;
+import nl.briansporkslede.workshopper.model.Authority;
 import nl.briansporkslede.workshopper.service.BookingService;
 import nl.briansporkslede.workshopper.service.UserService;
 import nl.briansporkslede.workshopper.util.Utils;
@@ -104,9 +105,12 @@ public class BookingController {
         UserDetails ud = (UserDetails) auth.getPrincipal();
         UserOutputDto optionalUser = userService.getUser(ud.getUsername());
         Long mentorId = optionalUser.mentor.getId();
+//        System.out.println("MentorId="+mentorId);
 
-        System.out.println("MentorId="+mentorId);
-
+        System.out.print("optionalUser.authorities = ");
+        for ( Authority authority : optionalUser.getAuthorities())
+            if ( authority.getAuthority().equals("TEACHER") )
+                return ResponseEntity.ok(service.getBookingsFeedbackForTeacher(mentorId));
         return ResponseEntity.ok(service.getBookingsFeedbackForMentor(mentorId));
 
     }

@@ -61,6 +61,7 @@ public class SpringSecurityConfig {
                 .antMatchers(HttpMethod.POST, "/authenticate").permitAll()  // everyone is allowed to authenticate
                 .antMatchers(HttpMethod.GET, "/authenticated").authenticated()
                 .antMatchers(HttpMethod.GET, "/users/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/users").permitAll()
 
                 .antMatchers(HttpMethod.GET, "/download/default.jpg").permitAll()
                 .antMatchers(HttpMethod.POST, "/upload-default").hasAuthority("PLANNER")
@@ -86,9 +87,10 @@ public class SpringSecurityConfig {
                 .antMatchers(HttpMethod.GET, "/api/v1/workshops/mystudentscanchoosefrom").hasAuthority("MENTOR")
                 .antMatchers(HttpMethod.GET, "/api/v1/reservations/bymystudents").hasAuthority("MENTOR")
                 .antMatchers(HttpMethod.GET, "/api/v1/bookings/formystudents").hasAuthority("MENTOR")
-                .antMatchers(HttpMethod.GET, "/api/v1/bookings/attended-and-feedback").hasAuthority("MENTOR")
+                .antMatchers(HttpMethod.GET, "/api/v1/bookings/attended-and-feedback").hasAnyAuthority("MENTOR","TEACHER")
                 .antMatchers(HttpMethod.POST, "/api/v1/students").hasAuthority("MENTOR")
                 .antMatchers(HttpMethod.DELETE, "/api/v1/students/**").hasAuthority("MENTOR")
+                .antMatchers(HttpMethod.GET, "/api/v1/workshops/**").hasAnyAuthority("MENTOR","TEACHER","STUDENT")
 
                 .antMatchers(HttpMethod.GET, "/**").hasAuthority("ADMIN")
                 .antMatchers("/**").denyAll()

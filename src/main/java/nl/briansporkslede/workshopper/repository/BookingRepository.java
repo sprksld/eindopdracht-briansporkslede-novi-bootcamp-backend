@@ -38,4 +38,12 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             , nativeQuery = true)
     Iterable<Booking> findBookingsFeedbackForMentor( Long id);
 
+    @Query( value = "SELECT * FROM bookings b"
+            + " JOIN workshops w ON w.id = b.workshop_id"
+            + " JOIN students s ON s.id = b.student_id"
+            + " WHERE w.teacher_id = ?1"
+//            + " AND w.dt_start <= CURRENT_DATE"
+            , nativeQuery = true)
+    Iterable<Booking> findBookingsFeedbackForTeacher( Long id);
+
 }
