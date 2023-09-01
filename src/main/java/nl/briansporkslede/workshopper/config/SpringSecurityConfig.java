@@ -57,6 +57,7 @@ public class SpringSecurityConfig {
                 .authorizeRequests()
 
 //                .antMatchers("/**").permitAll()         // allow everything from everyone for testing purposes
+                .antMatchers(HttpMethod.GET, "/hello").permitAll()
 
                 .antMatchers(HttpMethod.POST, "/authenticate").permitAll()  // everyone is allowed to authenticate
                 .antMatchers(HttpMethod.GET, "/authenticated").authenticated()

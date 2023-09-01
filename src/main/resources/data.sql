@@ -72,12 +72,11 @@ INSERT INTO authorities ( username, authority ) VALUES ('student1','STUDENT');
 INSERT INTO authorities ( username, authority ) VALUES ('student2','STUDENT');
 
 
--- INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 7, 1, 3, CURRENT_DATE);
--- INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 1, 2, 2, CURRENT_DATE - INTERVAL '2 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 7, 2, 3, CURRENT_DATE);
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 1, 2, 2, CURRENT_DATE - INTERVAL '2 DAYS');
+UPDATE reservations SET dt_processed = CURRENT_DATE WHERE student_id = 1 AND workshop_id = 2;
 
 
-INSERT INTO bookings ( student_id, workshop_id, dt_booked, attended, feedback ) VALUES ( 7, 2, '2023-01-09', false, 'goed meegedaan');
-INSERT INTO bookings ( student_id, workshop_id, dt_booked, attended, feedback ) VALUES ( 7, 8, '2023-01-11', false, 'kan beter opletten');
-INSERT INTO bookings ( student_id, workshop_id, dt_booked, attended, feedback ) VALUES ( 7, 1, '2023-01-16', false, 'samenwerken ging minder goed');
-
--- UPDATE reservations SET dt_processed = CURRENT_DATE WHERE student_id = 1 AND workshop_id = 2;
+INSERT INTO bookings ( student_id, workshop_id, dt_booked, attended, feedback ) VALUES ( 7, 2, '2023-01-09', true, 'goed meegedaan, jochie!');
+INSERT INTO bookings ( student_id, workshop_id, dt_booked, attended, feedback ) VALUES ( 7, 8, '2023-01-11', true, 'kan beter opletten');
+INSERT INTO bookings ( student_id, workshop_id, dt_booked, attended, feedback ) VALUES ( 1, 2, '2023-01-16', false, 'ziek');
