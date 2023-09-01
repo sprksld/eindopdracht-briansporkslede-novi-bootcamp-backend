@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class StudentTest {
+public class StudentzTest {
 
     @Test
     public void nameShouldBeBrian() {
@@ -13,6 +13,5 @@ public class StudentTest {
 
         student.setName("Brian");
         assertEquals("Brian", student.getName());
-        // assetFalse, assertTrue
     }
 }
