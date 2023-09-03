@@ -1,13 +1,13 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class Teachers {
+class Teacher {
 - id : Long
 - name : String
 - user : User
 }
 
-class Workshops {
+class Workshop {
 - id : Long
 - dtStart : LocalDateTime
 - duration : Integer
@@ -25,7 +25,7 @@ class Workshops {
 - creator : Teacher
 }
 
-class Students {
+class Student {
 - id : Long
 - gender : Char
 - name : String
@@ -37,7 +37,7 @@ class Students {
 - user : User
 }
 
-class Reservations {
+class Reservation {
 - id : Long
 - student : Student
 - workshop : Workshop
@@ -47,7 +47,7 @@ class Reservations {
 - dtProcessed : LocalDateTime
 }
 
-class Bookings {
+class Booking {
 - id : Long
 - student : Student
 - workshop : Workshop
@@ -64,18 +64,18 @@ class User {
 - studentId : Long
 }
 
-class Roles {
+class Role {
 - role_id : Long
 - name : String
 }
 
-Teachers " 1  " --> " 0..* " Workshops : organize
-Students " *  " --> "1 " Teachers : mentor
-Students " 1 " <---> " 0..* " Reservations : can make
-Students " 1" <---> "0..* " Bookings : can have
+Teacher " 2  " --> " 0..* " Workshop
+Student " *  " --> "1 " Teacher : mentor
+Student " 1 " <---> " 0..* " Reservation : can make
+Student " 1" <---> "0..* " Booking : can have
 
-Workshops " 1    " <-- " *" Reservations
-Workshops " 1  " <-- " *    " Bookings
+Workshop " 1    " <-- " *" Reservation
+Workshop " 1  " <-- " *    " Booking
 
-User "*" <--> "*" Roles
+User "*" <--> "*" Role
 @enduml

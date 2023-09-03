@@ -10,7 +10,7 @@ public class Teacher {
     private Long id;
     private String name;
 
-    private Long user_id;       // TODO change back to class, when error is gone
+    private Long user_id;
 
     // getters and setters
 
