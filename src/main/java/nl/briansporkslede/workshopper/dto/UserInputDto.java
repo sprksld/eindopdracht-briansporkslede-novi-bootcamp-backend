@@ -2,6 +2,9 @@ package nl.briansporkslede.workshopper.dto;
 
 import nl.briansporkslede.workshopper.model.Authority;
 import nl.briansporkslede.workshopper.model.User;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Set;
 
@@ -28,7 +31,8 @@ public class UserInputDto {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
     }
 
     public Boolean getEnabled() {

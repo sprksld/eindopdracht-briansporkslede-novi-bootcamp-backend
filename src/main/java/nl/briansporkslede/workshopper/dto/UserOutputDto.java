@@ -18,8 +18,6 @@ public class UserOutputDto {
     public Teacher mentor;
     public Student student;
 
-//    public Collection<Role> roles;    // TODO
-
     public String getUsername() {
         return username;
     }

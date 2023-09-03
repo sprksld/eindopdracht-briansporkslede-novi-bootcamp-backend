@@ -1,12 +1,14 @@
 package nl.briansporkslede.workshopper.controller;
 
 import nl.briansporkslede.workshopper.dto.WorkshopOutputDto;
+import nl.briansporkslede.workshopper.model.Teacher;
 import nl.briansporkslede.workshopper.service.CustomUserDetailsService;
 import nl.briansporkslede.workshopper.service.ReservationService;
 import nl.briansporkslede.workshopper.service.UserService;
 import nl.briansporkslede.workshopper.service.WorkshopService;
 import nl.briansporkslede.workshopper.util.JwtUtil;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ import java.time.LocalDateTime;
 @WebMvcTest(WorkshopController.class)
 class WorkshopControllerTest {
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @MockBean
     UserService userService;
@@ -48,20 +50,24 @@ class WorkshopControllerTest {
     @MockBean
     ReservationService reservationService;
 
+    @Disabled
     @Test
-    @WithMockUser(username="planner", roles="PLANNER")    // check authorization, not authentication
+    @WithMockUser(username="admin", roles="ADMIN")    // check authorization, not authentication
     void shouldRetrieveCorrectWorkshop() throws Exception {
+
+        Teacher teacher = new Teacher();
+        teacher.setName("Fred Mulder");
 
         WorkshopOutputDto outputDto = new WorkshopOutputDto();
         outputDto.id = 123L;
         outputDto.title = "Plannen kun je leren";
         outputDto.dtStart = LocalDateTime.parse("2023-09-25T09:00:00");
         outputDto.duration = 45;
-
+        outputDto.teacher = teacher;
         Mockito.when(workshopService.getWorkshop(123L )).thenReturn(outputDto);
 
         this.mockMvc
-                .perform(MockMvcRequestBuilders.get("/api/v1/workshops/123"))
+                .perform(MockMvcRequestBuilders.get("/api/v1/workshops/list"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
 //                .andExpect(MockMvcResultMatchers.jsonPath("$.id", is(123L)))

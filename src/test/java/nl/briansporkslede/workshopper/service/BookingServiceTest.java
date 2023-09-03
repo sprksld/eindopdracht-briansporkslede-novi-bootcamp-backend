@@ -35,11 +35,9 @@ class BookingServiceTest {
         Mockito.when(repos.findById(anyLong())).thenReturn(Optional.of(booking));
 
         // act
-
         BookingOutputDto odto = service.getBooking(123L);
 
         // assert
-
         assertEquals("Leuke workshop!", odto.feedback );
 
     }

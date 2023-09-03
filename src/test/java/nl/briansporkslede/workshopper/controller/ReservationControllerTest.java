@@ -70,10 +70,10 @@ class ReservationControllerTest {
         Mockito.when(reservationService.getReservation(123L )).thenReturn(outputDto);
 
         this.mockMvc
-                .perform(MockMvcRequestBuilders.get("/api/v1/reservation/123"))
+                .perform(MockMvcRequestBuilders.get("/api/v1/reservations/123"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id", is(123L)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", is(123)))
         //.andExpect(MockMvcResultMatchers.jsonPath("$.title", is("Plannen kun je leren")))
         ;
 

@@ -25,7 +25,7 @@ class StudentServiceTest {
     StudentService service;
 
     @Test
-    @WithMockUser(username="planner", roles="PLANNER")    // check authorization, not authentication
+//    @WithMockUser(username="planner", roles="PLANNER")    // check authorization, not authentication
     void shouldReturnCorrectStudent() {
         // arrange
         Student student = new Student();

@@ -13,6 +13,7 @@ public class TeacherInputDto {
     public Teacher toClass() {
         Teacher teacher = new Teacher();
 
+        teacher.setId(this.id);
         teacher.setName(this.name);
 
         return teacher;
