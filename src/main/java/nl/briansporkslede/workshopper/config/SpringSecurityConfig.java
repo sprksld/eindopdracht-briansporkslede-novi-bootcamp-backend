@@ -91,7 +91,7 @@ public class SpringSecurityConfig {
                 .antMatchers(HttpMethod.GET, "/api/v1/bookings/attended-and-feedback").hasAnyAuthority("MENTOR","TEACHER")
                 .antMatchers(HttpMethod.POST, "/api/v1/students").hasAuthority("MENTOR")
                 .antMatchers(HttpMethod.DELETE, "/api/v1/students/**").hasAuthority("MENTOR")
-                .antMatchers(HttpMethod.GET, "/api/v1/workshops/**").hasAnyAuthority("MENTOR","TEACHER","STUDENT")
+                .antMatchers(HttpMethod.GET, "/api/v1/workshops/**").hasAnyAuthority("MENTOR","TEACHER","STUDENT","PLANNER")
 
                 .antMatchers(HttpMethod.GET, "/**").hasAuthority("ADMIN")
                 .antMatchers("/**").denyAll()

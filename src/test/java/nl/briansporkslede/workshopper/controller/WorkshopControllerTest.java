@@ -23,36 +23,31 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.anyLong;
 
 import java.time.LocalDateTime;
 
 @ActiveProfiles("test")
 @WebMvcTest(WorkshopController.class)
 class WorkshopControllerTest {
+    @MockBean
+    UserService userService;
+    @MockBean
+    UserDetailsService userDetailsService;
+    @MockBean
+    CustomUserDetailsService cudServer;
+    @MockBean
+    JwtUtil jwtUtil;
+    @MockBean
+    WorkshopService workshopService;
+    @MockBean
+    ReservationService reservationService;
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    UserService userService;
-
-    @MockBean
-    UserDetailsService userDetailsService;
-
-    @MockBean
-    CustomUserDetailsService cudServer;
-
-    @MockBean
-    JwtUtil jwtUtil;
-
-    @MockBean
-    WorkshopService workshopService;
-
-    @MockBean
-    ReservationService reservationService;
-
-    @Disabled
     @Test
-    @WithMockUser(username="admin", roles="ADMIN")    // check authorization, not authentication
+    @WithMockUser(username = "student", roles = "STUDENT")
+        // check authorization, not authentication
     void shouldRetrieveCorrectWorkshop() throws Exception {
 
         Teacher teacher = new Teacher();
@@ -64,15 +59,15 @@ class WorkshopControllerTest {
         outputDto.dtStart = LocalDateTime.parse("2023-09-25T09:00:00");
         outputDto.duration = 45;
         outputDto.teacher = teacher;
-        Mockito.when(workshopService.getWorkshop(123L )).thenReturn(outputDto);
+        Mockito.when(workshopService.getWorkshop(anyLong())).thenReturn(outputDto);
 
         this.mockMvc
-                .perform(MockMvcRequestBuilders.get("/api/v1/workshops/list"))
+                .perform(MockMvcRequestBuilders.get("/api/v1/workshops/123"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.id", is(123L)))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.title", is("Plannen kun je leren")))
-                ;
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", is(123)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title", is("Plannen kun je leren")))
+        ;
 
     }
 }
