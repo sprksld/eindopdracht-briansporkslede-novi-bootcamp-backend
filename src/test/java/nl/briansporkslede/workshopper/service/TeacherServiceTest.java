@@ -4,7 +4,6 @@ import nl.briansporkslede.workshopper.dto.TeacherInputDto;
 import nl.briansporkslede.workshopper.dto.TeacherOutputDto;
 import nl.briansporkslede.workshopper.model.Teacher;
 import nl.briansporkslede.workshopper.repository.TeacherRepository;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -25,29 +24,33 @@ class TeacherServiceTest {
     @Mock
     TeacherService service;
 
-    @Disabled
+//    @Disabled
     @Test
     @WithMockUser(username="admin", roles="ADMIN")    // check authorization, not authentication
-    void shouldReturnCorrectTeacher() {
+    void shouldReturnCorrectTeacherName() {
         // arrange
 
         TeacherInputDto inputDto = new TeacherInputDto();
-        inputDto.id = 234L;
+        inputDto.id = 789L;
         inputDto.name = "Mijnheer Jansen";
+        service.createTeacher(inputDto);
 
-        Teacher teacher = new Teacher();    // id, name, user_id
-        teacher = inputDto.toClass();
+        Teacher teacher = inputDto.toClass();
+
+        TeacherOutputDto outputDto = new TeacherOutputDto();
+        outputDto.id = teacher.getId();
+        outputDto.name = teacher.getName();
+
         Mockito.when(repos.findById(anyLong())).thenReturn(Optional.of(teacher));
 
         // act
 
-        TeacherOutputDto outputDto = new TeacherOutputDto();
-        outputDto = service.getTeacher(234L);
+        Optional<Teacher> teacherFound = repos.findById(456L);
 
         // assert
 
-        assertNotNull(outputDto);
-        assertEquals("Mijnheer Jansen", outputDto.name);
+        assertEquals(789, teacherFound.get().getId());
+        assertEquals("Mijnheer Jansen", teacherFound.get().getName());
 
     }
 }

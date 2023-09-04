@@ -7,28 +7,22 @@ import nl.briansporkslede.workshopper.service.CustomUserDetailsService;
 import nl.briansporkslede.workshopper.service.ReservationService;
 import nl.briansporkslede.workshopper.service.UserService;
 import nl.briansporkslede.workshopper.util.JwtUtil;
-import org.hibernate.jdbc.Work;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.time.LocalDateTime;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 
-@ActiveProfiles("test")
 @WebMvcTest(ReservationController.class)
 class ReservationControllerTest {
     @Autowired
@@ -69,12 +63,11 @@ class ReservationControllerTest {
 
         Mockito.when(reservationService.getReservation(123L )).thenReturn(outputDto);
 
-        this.mockMvc
-                .perform(MockMvcRequestBuilders.get("/api/v1/reservations/123"))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id", is(123)))
-        //.andExpect(MockMvcResultMatchers.jsonPath("$.title", is("Plannen kun je leren")))
+        mockMvc
+                .perform(get("/api/v1/reservations/123"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(123)))
         ;
 
     }

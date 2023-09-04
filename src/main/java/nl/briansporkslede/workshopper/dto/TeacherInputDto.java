@@ -6,6 +6,7 @@ import javax.validation.constraints.*;
 
 public class TeacherInputDto {
     public Long id;
+
     @NotBlank
     @Size(min=2,max=60)
     public String name;

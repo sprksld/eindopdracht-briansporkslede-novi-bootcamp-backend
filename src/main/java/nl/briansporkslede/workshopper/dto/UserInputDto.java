@@ -16,7 +16,7 @@ public class UserInputDto {
     public String email;
     public Set<Authority> authorities;
 
-//    public String[] roles;
+    public String[] roles;
 
     public String getUsername() {
         return username;

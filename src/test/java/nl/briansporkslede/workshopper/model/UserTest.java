@@ -4,8 +4,7 @@ import nl.briansporkslede.workshopper.dto.UserInputDto;
 import nl.briansporkslede.workshopper.dto.UserOutputDto;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -105,9 +104,60 @@ class UserTest {
         assertEquals("giovanni", outputDto.getUsername());
         assertEquals("giovanni@example.com", outputDto.getEmail());
         assertNotNull(outputDto.getPassword());
+        assertEquals(outputDto.getPassword(), user.getPassword());
         assertNotEquals("moresecrets", outputDto.getPassword());
         assertTrue(outputDto.getEnabled());
         assertEquals("987654321", outputDto.getApikey());
 
     }
+
+    @Test
+    void shouldReturnSameName() {
+        // arrange
+
+        Authority authority1 = new Authority("brian", "ADMIN");
+        Authority authority2 = new Authority("piet", "USER");
+        Set<Authority> authorities = new HashSet<>();
+        authorities.add(authority1);
+        authorities.add(authority2);
+
+        UserInputDto inputDto = new UserInputDto();
+        inputDto.setUsername("Angelo");
+        inputDto.setPassword("some-encoded-string");
+        inputDto.setApikey("78675645");
+        inputDto.setEmail("someone@example.com");
+        inputDto.setEnabled(true);
+        inputDto.setAuthorities(authorities);
+
+        // act
+
+        User user = inputDto.toClass();
+        Set<Authority> retrievedAuthorities = inputDto.getAuthorities();
+        Iterator itr = retrievedAuthorities.iterator();
+
+        Boolean foundName = false;
+        while (itr.hasNext()) {
+            Authority auth = (Authority) itr.next();
+            if ( auth.getUsername() == "brian" )
+                foundName = true;
+        }
+
+        // assert
+
+        assertEquals(inputDto.getUsername(), user.getUsername());
+        assertEquals(inputDto.getPassword(), user.getPassword());
+        assertEquals(inputDto.getApikey(), user.getApikey());
+        assertEquals(inputDto.getEmail(), user.getEmail());
+        assertEquals(inputDto.getEnabled(), user.isEnabled());
+
+        assertEquals("Angelo", user.getUsername());
+        assertNotEquals("some-encoded-string", user.getPassword());
+        assertEquals("78675645", user.getApikey());
+        assertEquals("someone@example.com", user.getEmail());
+        assertTrue(user.isEnabled());
+
+        assertTrue(foundName);
+
+    }
+
 }

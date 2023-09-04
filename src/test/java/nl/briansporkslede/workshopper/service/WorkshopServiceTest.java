@@ -27,7 +27,7 @@ class WorkshopServiceTest {
     WorkshopService service;
 
     @Test
-//    @WithMockUser(username="planner", roles="PLANNER")    // check authorization, not authentication
+    @WithMockUser(username="planner", roles="PLANNER")    // check authorization, not authentication
     void shouldReturnCorrectWorkshop() {
         // arrange
         Workshop workshop = new Workshop();
