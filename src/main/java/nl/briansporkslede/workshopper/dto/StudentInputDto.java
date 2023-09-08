@@ -31,8 +31,6 @@ public class StudentInputDto {
         student.setGradeYear(this.gradeYear);
         student.setClassName(this.className);
 
-        System.out.println("Meegestuurde mentor = "+this.mentor_id);    // TODO
-
         if (this.mentor_id == 0L)
             student.setMentor(null);
         else {

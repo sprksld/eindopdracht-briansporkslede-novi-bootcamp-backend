@@ -41,11 +41,12 @@ class AuthorityTest {
 
         // act
 
-        String result = a.getUsername();
-        String result2 = a.getAuthority();
+        String resultingUsername = a.getUsername();
+        String resultingAuthority = a.getAuthority();
 
         // assert
-        assertEquals("john", result);
-        assertEquals("plannertje", result2);
+        assertEquals("john", resultingUsername);
+        assertEquals("plannertje", resultingAuthority);
     }
+
 }

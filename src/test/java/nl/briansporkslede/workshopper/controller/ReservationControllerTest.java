@@ -12,8 +12,8 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
@@ -23,22 +23,20 @@ import java.time.LocalDateTime;
 
 import static org.hamcrest.Matchers.is;
 
+@ActiveProfiles("test")
 @WebMvcTest(ReservationController.class)
 class ReservationControllerTest {
     @Autowired
-    private MockMvc mockMvc;
+    MockMvc mockMvc;
+
+    @MockBean
+    JwtUtil jwtUtil;
 
     @MockBean
     UserService userService;
 
     @MockBean
-    UserDetailsService userDetailsService;
-
-    @MockBean
     CustomUserDetailsService cudServer;
-
-    @MockBean
-    JwtUtil jwtUtil;
 
     @MockBean
     ReservationService reservationService;

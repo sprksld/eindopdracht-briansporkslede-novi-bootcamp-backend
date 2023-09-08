@@ -22,16 +22,16 @@ public class StudentService {
         Iterable<Student> allStudents = repos.findAll();
         ArrayList<StudentOutputDto> foundStudents = new ArrayList<>();
 
-        for( Student student : allStudents ) {
+        for (Student student : allStudents) {
             StudentOutputDto dto = new StudentOutputDto();
             foundStudents.add(dto.toDto(student));
         }
-        return( foundStudents );
+        return (foundStudents);
     }
 
     public StudentOutputDto getStudent(Long id) {
         Optional<Student> optionalStudent = repos.findById(id);
-        if ( optionalStudent.isEmpty())
+        if (optionalStudent.isEmpty())
             throw new RecordNotFoundException("student: id not found");
 
         Student student = optionalStudent.get();
@@ -39,35 +39,30 @@ public class StudentService {
         return dto.toDto(student);
     }
 
-    public Long createStudent( StudentInputDto studentInputDto ) {
+    public Long createStudent(StudentInputDto studentInputDto) {
         Student student = studentInputDto.toClass();
         repos.save(student);
         return student.getId();
     }
 
     public Long deleteStudent(Long id) {
-        if (!repos.existsById(id))
-            throw new RecordNotFoundException("student id not found, therefore it can't be deleted");
-
         repos.deleteById(id);
-        if ( repos.existsById(id))
+        if (repos.existsById(id))
             throw new RecordNotFoundException("student could not be deleted");
 
         return null;
-    }
 
+    }
 
     public Iterable<StudentOutputDto> getMyStudents(Long teacher_id) {
         Iterable<Student> allStudents = repos.findStudentsByMentorId(teacher_id);
         ArrayList<StudentOutputDto> foundStudents = new ArrayList<>();
 
-        for( Student student : allStudents ) {
+        for (Student student : allStudents) {
             StudentOutputDto dto = new StudentOutputDto();
             foundStudents.add(dto.toDto(student));
         }
-        return( foundStudents );
+        return (foundStudents);
     }
-
-
 
 }

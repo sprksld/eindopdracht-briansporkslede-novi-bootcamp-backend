@@ -17,9 +17,11 @@ class LikeDtoTest {
 
         // act
 
+        Integer amountLiked = inputDto.likeAmount;
+
         // assert
 
-        assertEquals(3, inputDto.likeAmount);
+        assertEquals(3, amountLiked);
 
     }
 
