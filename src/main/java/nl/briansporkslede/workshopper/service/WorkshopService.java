@@ -19,25 +19,13 @@ import java.util.ArrayList;
 public class WorkshopService {
     private final WorkshopRepository repos; // constructor injection instead of @Autowired
 
-    public WorkshopService( WorkshopRepository r) {
+    public WorkshopService(WorkshopRepository r) {
         this.repos = r;
-    }
-
-    public Iterable<WorkshopOutputDto> getWorkshops() {
-        Iterable<Workshop> allWorkshops = repos.findAllByOrderByDtStart();
-        ArrayList<WorkshopOutputDto> foundWorkshops = new ArrayList<>();
-
-        for( Workshop workshop : allWorkshops ) {
-            WorkshopOutputDto dto = new WorkshopOutputDto();
-            foundWorkshops.add(dto.toDto(workshop));
-        }
-        return( foundWorkshops );
-
     }
 
     public WorkshopOutputDto getWorkshop(Long id) {
         Optional<Workshop> optionalWorkshop = repos.findById(id);
-        if ( optionalWorkshop.isEmpty())
+        if (optionalWorkshop.isEmpty())
             throw new RecordNotFoundException("workshop id not found");
 
         Workshop workshop = optionalWorkshop.get();
@@ -45,7 +33,19 @@ public class WorkshopService {
         return dto.toDto(workshop);
     }
 
-    public Long createWorkshop( WorkshopInputDto workshopInputDto ) {
+    public Iterable<WorkshopOutputDto> getWorkshops() {
+        Iterable<Workshop> allWorkshops = repos.findAllByOrderByDtStart();
+        ArrayList<WorkshopOutputDto> foundWorkshops = new ArrayList<>();
+
+        for (Workshop workshop : allWorkshops) {
+            WorkshopOutputDto dto = new WorkshopOutputDto();
+            foundWorkshops.add(dto.toDto(workshop));
+        }
+        return (foundWorkshops);
+
+    }
+
+    public Long createWorkshop(WorkshopInputDto workshopInputDto) {
         Workshop workshop = workshopInputDto.toClass();
         repos.save(workshop);
         return workshop.getId();
@@ -53,8 +53,7 @@ public class WorkshopService {
 
     public Long updateWorkshop(Long id, WorkshopInputDto dto) {
         Optional<Workshop> optionalWorkshop = repos.findById(id);
-        if (optionalWorkshop.isEmpty())
-            throw new RecordNotFoundException("invalid workshop id");
+        if (optionalWorkshop.isEmpty()) throw new RecordNotFoundException("invalid workshop id");
 
         Workshop updatedWorkshop = dto.toClass();
         updatedWorkshop.setId(id);
@@ -64,11 +63,8 @@ public class WorkshopService {
     }
 
     public Long deleteWorkshop(Long id) {
-        if (!repos.existsById(id))
-            throw new RecordNotFoundException("workshop id not found, therefore it can't be deleted");
-
         repos.deleteById(id);
-        if ( repos.existsById(id))
+        if (repos.existsById(id))
             throw new RecordNotFoundException("workshop could not be deleted");
 
         return null;
@@ -78,44 +74,44 @@ public class WorkshopService {
         Iterable<Workshop> allWorkshops = repos.findWorkshopsForMyGradeYear(myGradeYear);
         ArrayList<WorkshopOutputDto> foundWorkshops = new ArrayList<>();
 
-        for( Workshop workshop : allWorkshops ) {
+        for (Workshop workshop : allWorkshops) {
             WorkshopOutputDto dto = new WorkshopOutputDto();
             foundWorkshops.add(dto.toDto(workshop));
         }
-        return( foundWorkshops );
+        return (foundWorkshops);
     }
 
     public Iterable<WorkshopOutputDto> getWorkshopsByStudent(Long studentId) {
         Iterable<Workshop> allWorkshops = repos.findAllOpenWorkshopsByStudent(studentId);
         ArrayList<WorkshopOutputDto> foundWorkshops = new ArrayList<>();
 
-        for( Workshop workshop : allWorkshops ) {
+        for (Workshop workshop : allWorkshops) {
             WorkshopOutputDto dto = new WorkshopOutputDto();
             foundWorkshops.add(dto.toDto(workshop));
         }
-        return( foundWorkshops );
+        return (foundWorkshops);
     }
 
     public Iterable<WorkshopOutputDto> getWorkshopsByTeacher(Long teacherId) {
         Iterable<Workshop> allWorkshops = repos.findAllWorkshopsByTeacher(teacherId);
         ArrayList<WorkshopOutputDto> foundWorkshops = new ArrayList<>();
 
-        for( Workshop workshop : allWorkshops ) {
+        for (Workshop workshop : allWorkshops) {
             WorkshopOutputDto dto = new WorkshopOutputDto();
             foundWorkshops.add(dto.toDto(workshop));
         }
-        return( foundWorkshops );
+        return (foundWorkshops);
     }
 
     public Iterable<WorkshopOutputDto> getWorkshopsByMentor(Long teacherId) {
         Iterable<Workshop> allWorkshops = repos.findAllWorkshopsByMentor(teacherId);
         ArrayList<WorkshopOutputDto> foundWorkshops = new ArrayList<>();
 
-        for( Workshop workshop : allWorkshops ) {
+        for (Workshop workshop : allWorkshops) {
             WorkshopOutputDto dto = new WorkshopOutputDto();
             foundWorkshops.add(dto.toDto(workshop));
         }
-        return( foundWorkshops );
+        return (foundWorkshops);
     }
 
     public Iterable<String> getCategories() {

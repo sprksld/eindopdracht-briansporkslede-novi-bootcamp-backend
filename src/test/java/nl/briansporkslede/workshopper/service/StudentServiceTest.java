@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -73,20 +74,6 @@ class StudentServiceTest {
     }
 
     @Test
-//    @WithMockUser(username="planner", roles="PLANNER")    // check authorization, not authentication
-    void shouldReturnCorrectStudentName() {
-        // arrange
-        when(repos.findById(anyLong())).thenReturn(Optional.of(foundStudent));
-
-        // act
-        StudentOutputDto odto = studentService.getStudent(123L);
-
-        // assert
-        assertEquals("Piet Jansen", odto.name);
-
-    }
-
-    @Test
     void getSingleStudent() {
         // arrange
         when(repos.findById(2L)).thenReturn(Optional.ofNullable(student1));
@@ -99,7 +86,6 @@ class StudentServiceTest {
         assertThrows(RecordNotFoundException.class, () -> studentService.getStudent(1234L) );
 
     }
-
 
     @Test
     void getAllStudents() {
@@ -116,7 +102,7 @@ class StudentServiceTest {
     @Test
     void createStudent() {
         // arrange
-//        when(repos.save(newStudent)).thenReturn(newStudent);
+        when(repos.save(any(Student.class))).thenReturn(newStudent);
         studentInputDto1.mentor_id = mentor.getId();
 
         // act

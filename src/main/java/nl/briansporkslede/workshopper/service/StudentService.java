@@ -18,6 +18,16 @@ public class StudentService {
         this.repos = r;
     }
 
+    public StudentOutputDto getStudent(Long id) {
+        Optional<Student> optionalStudent = repos.findById(id);
+        if (optionalStudent.isEmpty())
+            throw new RecordNotFoundException("student: id not found");
+
+        Student student = optionalStudent.get();
+        StudentOutputDto dto = new StudentOutputDto();
+        return dto.toDto(student);
+    }
+
     public Iterable<StudentOutputDto> getStudents() {
         Iterable<Student> allStudents = repos.findAll();
         ArrayList<StudentOutputDto> foundStudents = new ArrayList<>();
@@ -27,16 +37,6 @@ public class StudentService {
             foundStudents.add(dto.toDto(student));
         }
         return (foundStudents);
-    }
-
-    public StudentOutputDto getStudent(Long id) {
-        Optional<Student> optionalStudent = repos.findById(id);
-        if (optionalStudent.isEmpty())
-            throw new RecordNotFoundException("student: id not found");
-
-        Student student = optionalStudent.get();
-        StudentOutputDto dto = new StudentOutputDto();
-        return dto.toDto(student);
     }
 
     public Long createStudent(StudentInputDto studentInputDto) {
@@ -51,7 +51,6 @@ public class StudentService {
             throw new RecordNotFoundException("student could not be deleted");
 
         return null;
-
     }
 
     public Iterable<StudentOutputDto> getMyStudents(Long teacher_id) {
