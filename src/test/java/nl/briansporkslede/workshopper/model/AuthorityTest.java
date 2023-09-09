@@ -14,11 +14,11 @@ class AuthorityTest {
         a.setUsername("john");
 
         // act
-
         String result = a.getUsername();
 
         // assert
         assertEquals("john", result);
+
     }
 
     @Test
@@ -28,11 +28,11 @@ class AuthorityTest {
         a.setAuthority("USER");
 
         // act
-
         String result = a.getAuthority();
 
         // assert
         assertEquals("USER", result);
+
     }
 
     @Test
@@ -40,13 +40,13 @@ class AuthorityTest {
         a = new Authority( "john", "plannertje");
 
         // act
-
         String resultingUsername = a.getUsername();
         String resultingAuthority = a.getAuthority();
 
         // assert
         assertEquals("john", resultingUsername);
         assertEquals("plannertje", resultingAuthority);
+
     }
 
 }

@@ -2,7 +2,6 @@ package nl.briansporkslede.workshopper.dto;
 
 import nl.briansporkslede.workshopper.model.Authority;
 import nl.briansporkslede.workshopper.model.User;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -10,7 +9,7 @@ import java.util.Set;
 
 public class UserInputDto {
     public String username;
-    public String password;
+    private String password;    // must use method to ensure encryption
     public Boolean enabled;
     public String apikey;
     public String email;

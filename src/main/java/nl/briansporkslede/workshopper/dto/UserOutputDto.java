@@ -85,6 +85,15 @@ public class UserOutputDto {
     public UserOutputDto toDto(User user) {
         UserOutputDto dto = new UserOutputDto();
 
+        dto.setUsername(user.getUsername());
+        dto.setPassword( user.getPassword());
+        dto.setEnabled( user.isEnabled());
+        dto.setApikey( user.getApikey());
+        dto.setEmail( user.getEmail());
+        dto.setAuthorities( user.getAuthorities());
+        dto.setMentor( user.getMentor());
+        dto.setStudent( user.getStudent());
+/*
         dto.username = user.getUsername();
         dto.password = user.getPassword();
         dto.enabled = user.isEnabled();
@@ -93,6 +102,7 @@ public class UserOutputDto {
         dto.authorities = user.getAuthorities();
         dto.mentor = user.getMentor();
         dto.student = user.getStudent();
+*/
 
         return dto;
     }

@@ -52,7 +52,27 @@ class TeacherControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = "ADMIN")  // check authorization, not authentication
-    void shouldRetrieveCorrectTeacher() throws Exception {
+    void createTeacher() throws Exception {
+
+        TeacherInputDto inputDto = new TeacherInputDto();
+        inputDto.name = "peter";
+
+        Mockito.when(teacherService.createTeacher(inputDto)).thenReturn(1L);
+
+        this.mockMvc
+                .perform(post("/api/v1/teachers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(inputDto))
+                )
+                .andDo(print())
+                .andExpect(status().isCreated())
+                ;
+
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = "ADMIN")  // check authorization, not authentication
+    void getTeacherList() throws Exception {
 
         Teacher teacher1 = new Teacher();
         Teacher teacher2 = new Teacher();
@@ -77,25 +97,8 @@ class TeacherControllerTest {
 
     }
 
-    @Test
-    @WithMockUser(username = "admin", roles = "ADMIN")  // check authorization, not authentication
-    void createTeacher() throws Exception {
 
-        TeacherInputDto inputDto = new TeacherInputDto();
-        inputDto.name = "peter";
 
-        Mockito.when(teacherService.createTeacher(inputDto)).thenReturn(1L);
-
-        this.mockMvc
-                .perform(post("/api/v1/teachers")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(inputDto))
-                )
-                .andDo(print())
-                .andExpect(status().isCreated())
-                ;
-
-    }
 
     public static String asJsonString(final Object obj) {
         try {
