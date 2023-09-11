@@ -120,7 +120,6 @@ public class WorkshopController {
                 + "\n\n"
                 + ud;
 
-
     }
 
     @PatchMapping("/like/{workshopId}")
@@ -139,7 +138,7 @@ public class WorkshopController {
 
         reservationService.like(studentId, workshopId, dto.likeAmount);
 
-        System.out.println("WorkshopId = " + workshopId);   // TODO
+        System.out.println("WorkshopId = " + workshopId);
         System.out.println("LikeAmount = " + dto.likeAmount);
         System.out.println("student_id = " + studentId);
 

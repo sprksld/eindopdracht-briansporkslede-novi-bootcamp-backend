@@ -3,6 +3,7 @@ package nl.briansporkslede.workshopper.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.briansporkslede.workshopper.dto.TeacherInputDto;
+import nl.briansporkslede.workshopper.dto.TeacherOutputDto;
 import nl.briansporkslede.workshopper.model.Teacher;
 import nl.briansporkslede.workshopper.service.CustomUserDetailsService;
 import nl.briansporkslede.workshopper.service.TeacherService;
@@ -26,6 +27,8 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -45,7 +48,7 @@ class TeacherControllerTest {
     UserService userService;
 
     @MockBean
-    CustomUserDetailsService cudServer;
+    CustomUserDetailsService cudService;
 
     @MockBean
     TeacherService teacherService;
@@ -55,10 +58,20 @@ class TeacherControllerTest {
     void createTeacher() throws Exception {
 
         TeacherInputDto inputDto = new TeacherInputDto();
-        inputDto.name = "peter";
 
         Mockito.when(teacherService.createTeacher(inputDto)).thenReturn(1L);
 
+        inputDto.name = null;
+        this.mockMvc
+                .perform(post("/api/v1/teachers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(inputDto))
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+        ;
+
+        inputDto.name = "peter";
         this.mockMvc
                 .perform(post("/api/v1/teachers")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -81,7 +94,7 @@ class TeacherControllerTest {
         teacher2.setId(456L);
         teacher2.setName("Mevrouw de Bok");
 
-        List<Teacher> teacherList = new ArrayList<Teacher>();
+        List<Teacher> teacherList = new ArrayList<>();
         teacherList.add(teacher1);
         teacherList.add(teacher2);
 
@@ -97,8 +110,53 @@ class TeacherControllerTest {
 
     }
 
+    @Test
+    @WithMockUser(username = "admin", roles = "ADMIN")  // check authorization, not authentication
+    void getTeacher() throws Exception {
+        Teacher teacher = new Teacher();
+        teacher.setId(123L);
+        teacher.setName("Mijnheer Jansen");
 
+        TeacherOutputDto teacherOutputDto = new TeacherOutputDto().toDto(teacher);
 
+        Mockito.when(teacherService.getTeacher(anyLong())).thenReturn(teacherOutputDto);
+
+        this.mockMvc
+                .perform(get("/api/v1/teachers/123"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(123)))
+                .andExpect(jsonPath("$.name", is("Mijnheer Jansen")))
+        ;
+
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = "ADMIN")  // check authorization, not authentication
+    void getTeachers() throws Exception {
+
+        Teacher teacher1 = new Teacher();
+        Teacher teacher2 = new Teacher();
+        teacher1.setId(123L);
+        teacher1.setName("Mijnheer Jansen");
+        teacher2.setId(456L);
+        teacher2.setName("Mevrouw de Bok");
+
+        List<TeacherOutputDto> teacherList = new ArrayList<>();
+        teacherList.add( new TeacherOutputDto().toDto(teacher1));
+        teacherList.add( new TeacherOutputDto().toDto(teacher2));
+
+        Mockito.when(teacherService.getTeachers()).thenReturn( teacherList);
+
+        this.mockMvc
+                .perform(get("/api/v1/teachers"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id", is(123)))
+                .andExpect(jsonPath("$[0].name", is("Mijnheer Jansen")))
+        ;
+
+    }
 
     public static String asJsonString(final Object obj) {
         try {

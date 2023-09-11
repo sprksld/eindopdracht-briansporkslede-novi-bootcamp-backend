@@ -34,18 +34,25 @@ class UserTest {
     @Test
     void shouldReturnEncryptedPassword() {
         // arrange
+        Teacher mentor = new Teacher();
+        mentor.setName("Aad Veldhuizen");
+        Student student = new Student();
+        student.setName("Leer Ling");
         UserInputDto dto = new UserInputDto();
+        dto.setEnabled(true);
         dto.setUsername("brian");
         dto.setPassword("this-password-is-unencrypted");
         dto.setEmail("brian@example.com");
-        dto.setEnabled(true);
+        dto.setMentor(mentor);
+        dto.setStudent(student);
         User user = dto.toClass();
 
         // act
+        Boolean enabled = user.isEnabled();
         String username = user.getUsername();
         String password = user.getPassword();
         String email = user.getEmail();
-        Boolean enabled = user.isEnabled();
+        Teacher myMentor = user.getMentor();
 
         // assert
         assertEquals("brian", username);
@@ -60,10 +67,8 @@ class UserTest {
         // arrange
         Authority auth1 = new Authority();
         Authority auth2 = new Authority();
-        Authority auth3 = new Authority();      // for xtra negative test
         auth1.setAuthority("EXTRA");
         auth2.setAuthority("SUPER");
-        auth3.setAuthority("ULTRA");            // for xtra negative test
         Set<Authority> auths = new HashSet<>();
         auths.add(auth1);
         auths.add(auth2);
@@ -77,12 +82,26 @@ class UserTest {
         Set<Authority> authorities = u.getAuthorities();
         assertEquals(auths, authorities);
         assertArrayEquals(auths.toArray(), authorities.toArray());
-/*
-        // to test if authorities are removed correctly ...
+    }
+
+    @Test
+    void testRemovalOfAuthorities() {
+        // arrange
+        Authority auth1 = new Authority( "bob", "TEACHER" );
+        Authority auth2 = new Authority( "bob", "STUDENT");
+
+        Set<Authority> auths = new HashSet<>();
+        auths.add(auth2);
+
+        User u = new User();
+        u.addAuthority(auth1);
+        u.addAuthority(auth2);
         u.removeAuthority(auth1);
-        u.addAuthority(auth3);
-        assertArrayEquals(auths.toArray(), authorities.toArray());
-*/
+
+        assertArrayEquals(auths.toArray(), u.getAuthorities().toArray());
+
+//        setMentor
+//        setStudent
     }
 
     @Test

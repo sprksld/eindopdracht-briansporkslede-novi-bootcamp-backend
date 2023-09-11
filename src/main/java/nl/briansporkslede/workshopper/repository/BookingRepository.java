@@ -9,8 +9,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     Iterable<Booking> findBookingsByWorkshopId( Long id );
     Iterable<Booking> findBookingsByStudentId( Long id );
 
-
-
     @Query( value = "SELECT * FROM bookings b"
             + " JOIN workshops w ON b.workshop_id = w.id"
             + " WHERE student_id = ?1"
@@ -26,15 +24,11 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             , nativeQuery = true)
     Iterable<Booking> findBookingsForMyStudents( Long id );
 
-
-
-
-
     @Query( value = "SELECT * FROM bookings b"
             + " JOIN workshops w ON w.id = b.workshop_id"
             + " JOIN students s ON s.id = b.student_id"
             + " WHERE s.mentor_id = ?1"
-// TODO for testing           + " AND w.dt_start <= CURRENT_DATE"
+//            + " AND w.dt_start <= CURRENT_DATE"
             , nativeQuery = true)
     Iterable<Booking> findBookingsFeedbackForMentor( Long id);
 
@@ -42,7 +36,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             + " JOIN workshops w ON w.id = b.workshop_id"
             + " JOIN students s ON s.id = b.student_id"
             + " WHERE w.teacher_id = ?1"
-// TODO for testing           + " AND w.dt_start <= CURRENT_DATE"
+//            + " AND w.dt_start <= CURRENT_DATE"
             , nativeQuery = true)
     Iterable<Booking> findBookingsFeedbackForTeacher( Long id);
 

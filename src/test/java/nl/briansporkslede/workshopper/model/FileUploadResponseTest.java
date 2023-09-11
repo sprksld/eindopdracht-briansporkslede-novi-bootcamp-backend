@@ -11,14 +11,26 @@ class FileUploadResponseTest {
         // arrange
         FileUploadResponse response = new FileUploadResponse( "hello", "text/plain", "https://example.com/hello");
 
-        // act has nothing to do, because there's not much to test
-
         // assert
-
         assertEquals("hello", response.getFileName());
         assertEquals("text/plain", response.getContentType());
         assertEquals("https://example.com/hello", response.getUrl());
 
     }
 
+    @Test
+    void shouldBeAbleToSetValues() {
+        // arrange
+        FileUploadResponse response = new FileUploadResponse();
+
+        // act
+        response.setFileName("readme.txt");
+        response.setContentType("text/plain");
+        response.setUrl("https://example.com/uploads/readme.txt");
+
+        // assert
+        assertEquals("readme.txt", response.getFileName());
+        assertEquals("text/plain", response.getContentType());
+        assertEquals("https://example.com/uploads/readme.txt", response.getUrl());
+    }
 }
