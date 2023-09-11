@@ -26,7 +26,7 @@ public class UserService {
     public List<UserOutputDto> getUsers() {
         UserOutputDto dto = new UserOutputDto();
         List<UserOutputDto> collection = new ArrayList<>();
-        List<User> list = (List<User>) userRepository.findAll();
+        List<User> list = userRepository.findAll();
         for (User user : list) {
             collection.add(dto.toDto(user));
         }

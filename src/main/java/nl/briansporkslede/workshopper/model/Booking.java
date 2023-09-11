@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "bookings" )
-// TODO next line works, but gives error in console log of IDEA
-//@Table(name = "bookings", uniqueConstraints = { @UniqueConstraint(columnNames = {"student_id", "workshop_id"})} )
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

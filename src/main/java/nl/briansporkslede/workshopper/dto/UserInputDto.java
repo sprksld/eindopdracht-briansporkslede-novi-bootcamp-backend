@@ -1,19 +1,23 @@
 package nl.briansporkslede.workshopper.dto;
 
 import nl.briansporkslede.workshopper.model.Authority;
+import nl.briansporkslede.workshopper.model.Student;
+import nl.briansporkslede.workshopper.model.Teacher;
 import nl.briansporkslede.workshopper.model.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Set;
 
 public class UserInputDto {
     public String username;
-    public String password;
     public Boolean enabled;
     public String apikey;
     public String email;
     public Set<Authority> authorities;
-
-//    public String[] roles;
+    public Teacher mentor;
+    public Student student;
+    private String password;    // MUST use method to ensure encryption
 
     public String getUsername() {
         return username;
@@ -28,7 +32,10 @@ public class UserInputDto {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if (password == null) return;
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
+
     }
 
     public Boolean getEnabled() {
@@ -63,6 +70,14 @@ public class UserInputDto {
         this.authorities = authorities;
     }
 
+    public void setMentor(Teacher mentor) {
+        this.mentor = mentor;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
     public User toClass() {
         User newUser = new User();
 
@@ -71,6 +86,8 @@ public class UserInputDto {
         newUser.setEnabled(this.enabled);
         newUser.setApikey(this.apikey);
         newUser.setEmail(this.email);
+        newUser.setMentor(this.mentor);
+        newUser.setStudent(this.student);
 
         return newUser;
     }

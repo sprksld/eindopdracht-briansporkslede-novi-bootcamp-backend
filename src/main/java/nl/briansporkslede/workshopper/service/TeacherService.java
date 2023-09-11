@@ -46,7 +46,7 @@ public class TeacherService {
         return teacher.getId();
     }
 
-    public List<Teacher> getTeacherz() {
+    public List<Teacher> getTeacherList() {
         return repos.findAll();
     }
 }

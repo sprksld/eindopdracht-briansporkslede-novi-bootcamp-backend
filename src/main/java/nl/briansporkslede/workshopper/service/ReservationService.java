@@ -64,7 +64,6 @@ public class ReservationService {
         ReservationOutputDto dto = new ReservationOutputDto();
         Optional<Reservation> optionalReservation = repos.findReservationByStudentIdAndWorkshopId(studentId, workshopId);
         if ( optionalReservation.isEmpty()) {
-//            throw new RecordNotFoundException("Die moet dus nog gemaakt worden ...");
             Reservation reservation = new Reservation();
             Student student = new Student();
             Workshop workshop = new Workshop();

@@ -65,15 +65,11 @@ public class WorkshopInputDto {
 
         Teacher teacher = new Teacher();
         teacher.setId(this.teacher_id);
-        workshop.setTeacher(teacher);
-        if (this.teacher_id == 0L)
-            workshop.setTeacher(null);
+        workshop.setTeacher( (this.teacher_id == 0L) ? null : teacher );
 
         Teacher creator = new Teacher();
         creator.setId(this.creator_id);
-        workshop.setCreator(creator);
-        if (this.creator_id == 0L)
-            workshop.setCreator(null);
+        workshop.setCreator( (this.creator_id == 0L) ? null : creator );
 
         return workshop;
     }

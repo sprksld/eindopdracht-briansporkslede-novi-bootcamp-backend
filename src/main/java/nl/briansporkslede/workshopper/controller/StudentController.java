@@ -77,7 +77,6 @@ public class StudentController {
         if (! (auth.getPrincipal() instanceof UserDetails)) {
             System.out.println("Helaas geen match qua UserDetails");
             return null;
-//            return new ResponseEntity<>("Tis niet helemaal goed gegaan. Jij lijkt geen mentor te zijn. TODO", HttpStatus.BAD_REQUEST);
         } else {
             System.out.println("We're on to something ...");
         }

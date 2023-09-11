@@ -3,6 +3,7 @@ package nl.briansporkslede.workshopper.controller;
 import nl.briansporkslede.workshopper.dto.UserInputDto;
 import nl.briansporkslede.workshopper.dto.UserOutputDto;
 import nl.briansporkslede.workshopper.exception.BadRequestException;
+import nl.briansporkslede.workshopper.model.Authority;
 import nl.briansporkslede.workshopper.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+
+import static nl.briansporkslede.workshopper.util.Utils.asJsonString;
 
 @CrossOrigin
 @RestController
@@ -44,7 +47,8 @@ public class UserController {
     public ResponseEntity<UserOutputDto> createUser(@RequestBody UserInputDto dto) {
 
         String newUsername = userService.createUser(dto);
-        userService.addAuthority(newUsername, "ROLE_USER");
+        for(Authority authority : dto.getAuthorities() )
+            userService.addAuthority(newUsername, authority.getAuthority());
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
                 .buildAndExpand(newUsername).toUri();

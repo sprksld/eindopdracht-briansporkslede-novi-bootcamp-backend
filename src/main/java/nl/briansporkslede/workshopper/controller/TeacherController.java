@@ -53,9 +53,9 @@ public class TeacherController {
     }
 
     @GetMapping("/list")
-    public List<Teacher> getTeacherz() {
+    public List<Teacher> getTeacherList() {
         List<Teacher> teachers;
-        teachers = service.getTeacherz();
+        teachers = service.getTeacherList();
         return teachers;
     }
 

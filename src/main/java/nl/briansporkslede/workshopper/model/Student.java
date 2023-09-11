@@ -30,7 +30,7 @@ public class Student {
     @JsonIgnore                             // prevent recursion
     private List<Booking> bookings;
 
-    private Long user_id;      // TODO change back to Class, when error is gone
+    private Long user_id;
 
     // getters and setters
 

@@ -25,7 +25,7 @@ INSERT INTO students (id, gender, name, grade_year, class_name, mentor_id ) VALU
 SELECT setval(pg_get_serial_sequence('students','id'),coalesce(max(id),0)+1,false) FROM students;
 -- ALTER SEQUENCE public.students_id_seq RESTART 100;
 
-INSERT INTO workshops ( dt_start, dt_reservations_start, dt_reservations_end, duration, min_grade_year, max_grade_year, room, category, title, min_participants, max_participants, teacher_id, creator_id ) VALUES ( '2023-04-01 10:30', '2023-01-01', '2023-03-31', 60, 1, 6, 'auditorium', 'sociaal', 'Moppen tappen like a Pro', 8, 20, 6, 1 );
+INSERT INTO workshops ( dt_start, dt_reservations_start, dt_reservations_end, duration, min_grade_year, max_grade_year, room, category, title, min_participants, max_participants, teacher_id, creator_id ) VALUES ( '2024-04-01 10:30', '2024-01-01', '2024-03-31', 60, 1, 6, 'auditorium', 'sociaal', 'Moppen tappen like a Pro', 8, 20, 6, 1 );
 INSERT INTO workshops ( dt_start, dt_reservations_start, dt_reservations_end, duration, min_grade_year, max_grade_year, room, category, title, min_participants, max_participants, teacher_id, creator_id ) VALUES ( CURRENT_DATE + INTERVAL '14 DAYS 10 HOURS', CURRENT_DATE - INTERVAL '1 WEEK 12 HOURS', CURRENT_DATE + INTERVAL '10 DAYS 12 HOURS', 45, 1, 2, 'gymzaal', 'sport', 'Capoeira', 20, 50, 4, 1 );
 INSERT INTO workshops ( dt_start, dt_reservations_start, dt_reservations_end, duration, min_grade_year, max_grade_year, room, category, title, min_participants, max_participants, teacher_id, creator_id ) VALUES ( CURRENT_DATE + INTERVAL '14 DAYS 10 HOURS', CURRENT_DATE - INTERVAL '1 WEEK 12 HOURS', CURRENT_DATE + INTERVAL '10 DAYS 12 HOURS', 45, 2, 2, 'grasveld', 'techniek', 'Drone vliegen', 2, 4, 4, 2 );
 INSERT INTO workshops ( dt_start, dt_reservations_start, dt_reservations_end, duration, min_grade_year, max_grade_year, room, category, title, min_participants, max_participants, teacher_id, creator_id ) VALUES ( CURRENT_DATE + INTERVAL '14 DAYS 10 HOURS', CURRENT_DATE - INTERVAL '1 WEEK 12 HOURS', CURRENT_DATE + INTERVAL '10 DAYS 12 HOURS', 45, 1, 3, 'muzieklokaal', 'muziek', 'Didgeridoo spelen', 8, 16, 5, 2 );
@@ -74,6 +74,28 @@ INSERT INTO authorities ( username, authority ) VALUES ('student2','STUDENT');
 
 INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 7, 2, 3, CURRENT_DATE);
 INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 1, 2, 2, CURRENT_DATE - INTERVAL '2 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 1, 3, 3, CURRENT_DATE - INTERVAL '4 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 2, 2, 1, CURRENT_DATE - INTERVAL '3 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 3, 4, 3, CURRENT_DATE - INTERVAL '1 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 4, 3, 1, CURRENT_DATE - INTERVAL '2 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 5, 4, 2, CURRENT_DATE - INTERVAL '1 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 5, 3, 1, CURRENT_DATE - INTERVAL '1 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 11, 6, 1, CURRENT_DATE - INTERVAL '1 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 11, 5, 2, CURRENT_DATE - INTERVAL '1 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 10, 6, 2, CURRENT_DATE - INTERVAL '1 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 10, 5, 3, CURRENT_DATE - INTERVAL '1 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 9, 5, 3, CURRENT_DATE - INTERVAL '1 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 9, 4, 1, CURRENT_DATE - INTERVAL '1 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 8, 4, 1, CURRENT_DATE - INTERVAL '1 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 8, 6, 1, CURRENT_DATE - INTERVAL '1 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 6, 5, 2, CURRENT_DATE - INTERVAL '1 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 6, 6, 1, CURRENT_DATE - INTERVAL '1 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 7, 6, 3, CURRENT_DATE - INTERVAL '1 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 7, 5, 1, CURRENT_DATE - INTERVAL '1 DAYS');
+
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 5, 12, 3, CURRENT_DATE - INTERVAL '1 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 4, 12, 2, CURRENT_DATE - INTERVAL '1 DAYS');
+INSERT INTO reservations ( student_id, workshop_id, priority, dt_reserved ) VALUES ( 3, 11, 1, CURRENT_DATE - INTERVAL '1 DAYS');
 UPDATE reservations SET dt_processed = CURRENT_DATE WHERE student_id = 1 AND workshop_id = 2;
 
 
